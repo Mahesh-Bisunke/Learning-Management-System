@@ -1,0 +1,8 @@
+package com.learningmgmt.enums;
+
+public enum Role {
+	STUDENT,
+    INSTRUCTOR,
+    ADMIN
+    
+}

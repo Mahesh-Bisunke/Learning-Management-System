@@ -1,0 +1,5 @@
+package com.learningmgmt.entity;
+
+public class User {
+
+}
