@@ -1,0 +1,38 @@
+package com.learningmgmt.service;
+
+import java.time.LocalDateTime;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.learningmgmt.dto.UserDTO;
+import com.learningmgmt.entity.User;
+import com.learningmgmt.repository.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserServices {
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public User signup(UserDTO userDTO) {
+		
+//		LocalDateTime datec=LocalDateTime.now();
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+//		String formatted = datec.format(formatter);
+//		User entity = modelMapper.map(userDTO, User.class);
+//		entity.setDateCreated(LocalDateTime.now());
+//		
+		User userentity = modelMapper.map(userDTO, User.class);
+		
+		
+		
+		return userRepository.save(userentity);
+	}
+
+	
+}

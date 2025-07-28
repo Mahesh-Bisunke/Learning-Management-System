@@ -1,0 +1,47 @@
+package com.learningmgmt;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+@Component
+public class JwtToken {
+
+	@Value("${jwt.token.validity}")
+	private long JWT_VALIDITY;
+	@Value("${jwt.token.secretkey}")
+	private String SECRET_KEY;
+	public String generateToken(UserDetails userdetails) {
+	List<String> roles = new ArrayList<>(); //List of Roles
+	
+	for(GrantedAuthority grantedAuthority: userdetails.getAuthorities()) {
+		roles.add(grantedAuthority.getAuthority());
+		
+	}
+	
+	Map<String, Object> claims = new HashMap<>();
+	claims.put("roles", roles);
+	
+	String token =Jwts.builder()
+	.setClaims(claims) //Roles
+	.subject(userdetails.getUsername())
+	.setIssuedAt(new Date(System.currentTimeMillis()))
+	.setExpiration(new Date(System.currentTimeMillis()+JWT_VALIDITY*1000))
+	.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+	.compact();
+	return token; 
+	
+		
+	}
+	
+}

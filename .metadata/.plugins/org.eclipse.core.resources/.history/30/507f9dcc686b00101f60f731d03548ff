@@ -1,0 +1,13 @@
+package com.learningmgmt;
+
+import javax.crypto.SecretKey;
+
+import io.jsonwebtoken.security.Keys;
+
+public class Launch {
+
+	public static void main(String[] args) {
+		
+		SecretKey key =Keys.secretKeyFor()
+	}
+}

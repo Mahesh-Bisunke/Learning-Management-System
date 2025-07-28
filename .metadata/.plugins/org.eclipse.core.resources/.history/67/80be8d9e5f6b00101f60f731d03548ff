@@ -1,0 +1,24 @@
+package com.learningmgmt;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+@Component
+public class JwtToken {
+
+	
+	public void generateToken(UserDetails userdetails) {
+	List<String> role = new ArrayList<>(); //List of Roles
+	
+	for(GrantedAuthority grantedAuthority: userdetails.getAuthorities()) {
+		role.add(grantedAuthority.getAuthority());
+		
+	}
+		
+	}
+	
+}

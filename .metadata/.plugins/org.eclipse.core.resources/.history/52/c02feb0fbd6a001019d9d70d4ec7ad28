@@ -1,0 +1,5 @@
+package com.learningmgmt.dto;
+
+public class UserDTO {
+
+}

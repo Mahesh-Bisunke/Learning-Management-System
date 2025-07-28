@@ -1,0 +1,5 @@
+package com.learningmgmt.repository;
+
+public interface UserRepository {
+
+}

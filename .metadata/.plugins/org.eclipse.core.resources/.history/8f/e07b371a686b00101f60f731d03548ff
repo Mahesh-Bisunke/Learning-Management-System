@@ -1,0 +1,11 @@
+package com.learningmgmt;
+
+import javax.crypto.SecretKey;
+
+public class Launch {
+
+	public static void main(String[] args) {
+		
+		SecretKey key =Keys
+	}
+}

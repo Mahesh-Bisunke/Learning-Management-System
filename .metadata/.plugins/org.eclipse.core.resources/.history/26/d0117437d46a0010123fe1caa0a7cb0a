@@ -1,0 +1,29 @@
+package com.learningmgmt.service;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.learningmgmt.dto.UserDTO;
+import com.learningmgmt.entity.User;
+import com.learningmgmt.repository.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserServices {
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public User signup(UserDTO userDTO) {
+		
+		//service layer
+		
+		
+		return null;
+	}
+
+	
+}

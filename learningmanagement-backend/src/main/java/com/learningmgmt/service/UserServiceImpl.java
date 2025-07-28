@@ -1,0 +1,63 @@
+package com.learningmgmt.service;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.learningmgmt.UserDetailsImpl;
+import com.learningmgmt.dto.UserDTO;
+import com.learningmgmt.entity.User;
+import com.learningmgmt.repository.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserServices, UserDetailsService {
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private ModelMapper modelMapper;
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public User signup(UserDTO userDTO) {
+		
+		
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+//		String dateCreated = LocalDateTime.now().format(formatter);
+
+		User userentity = modelMapper.map(userDTO, User.class);
+		userentity.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+		userentity.setDateCreated(LocalDateTime.now());
+		
+		
+		
+		return userRepository.save(userentity);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		
+		Optional<User> opt = userRepository.findByEmail( email);
+		
+		if(opt.isPresent()) {
+			User user = opt.get();
+			
+			
+			return new UserDetailsImpl(user);
+		}
+		else {
+			throw new UsernameNotFoundException("USER NOT FOUND");
+		}
+		
+	}
+
+	
+}

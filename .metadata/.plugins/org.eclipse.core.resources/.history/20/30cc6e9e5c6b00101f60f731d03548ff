@@ -1,0 +1,15 @@
+package com.learningmgmt;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+@Component
+public class JwtToken {
+
+	
+	public void generateToken(UserDetails userdetails) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

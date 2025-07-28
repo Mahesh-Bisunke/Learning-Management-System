@@ -1,0 +1,5 @@
+package com.learningmgmt.payload;
+
+public class AuthenticationResponse {
+
+}

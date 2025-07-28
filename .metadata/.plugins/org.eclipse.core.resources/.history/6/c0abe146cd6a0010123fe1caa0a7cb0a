@@ -1,0 +1,26 @@
+package com.learningmgmt.dto;
+
+import com.learningmgmt.enums.Role;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.Data;
+
+@Data
+public class UserDTO {
+private String name;
+	
+	@Column(unique=true , nullable=false)
+	private String email;
+	
+	private String password;
+	
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
+	private String profileImage; //we can store url or path
+	
+	@Column(columnDefinition = "TEXT")
+	private String bio;
+}
