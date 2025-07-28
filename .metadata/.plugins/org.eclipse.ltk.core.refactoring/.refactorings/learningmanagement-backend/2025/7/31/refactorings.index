@@ -21,3 +21,5 @@
 1753670688181	Extract local variable 'hs'
 1753672271166	Extract local variable 'authresponse'
 1753672423200	Extract local variable 'token'
+1753690795205	Extract local variable 'bytes'
+1753690877986	Extract local variable 'key'

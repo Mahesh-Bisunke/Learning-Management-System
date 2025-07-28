@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap.KeySetView;
+
+import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtToken {
@@ -33,14 +37,23 @@ public class JwtToken {
 	claims.put("roles", roles);
 	
 	String token =Jwts.builder()
-	.setClaims(claims) //Roles
+	
+	.claims(claims) //roles
+	 
 	.subject(userdetails.getUsername())
-	.setIssuedAt(new Date(System.currentTimeMillis()))
-	.setExpiration(new Date(System.currentTimeMillis()+JWT_VALIDITY*1000))
-	.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+	.issuedAt(new Date(System.currentTimeMillis()))
+	.expiration(new Date(System.currentTimeMillis()+JWT_VALIDITY*1000))
+	.signWith(getKey(),Jwts.SIG.HS512)
 	.compact();
 	return token; 
 	
+		
+	}
+	
+	private SecretKey getKey() {
+		byte[] bytes = SECRET_KEY.getBytes();
+		SecretKey key = Keys.hmacShaKeyFor(bytes);
+		return key;
 		
 	}
 	
